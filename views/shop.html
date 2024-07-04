@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ExpressAlii</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="js/func.js"></script>
+</head>
+<body>
+    <header>
+        <div class="title">
+            <h2><a href="/">Selling Shop</a></h2>
+        </div>
+    </header>
+    <div class="container">
+        <p>Selling anything !</p>
+        <form action="/process_item" method="post">
+            <p>
+                <input type="text" id="name" placeholder="item name">
+            </p>
+            <p>
+                <textarea id="description" placeholder="description"></textarea> 
+            </p>
+            <p><input type="submit" onclick="item_submit()"></p>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+h2 {
+    color: red;
+    margin: 0px;
+}
+
+header {
+    width: 500px;
+    height: 50px;
+}
+header > div {
+    margin: 20px;
+    width: 200px;
+    float: left;
+}
+.title {
+    float: left;
+    width:200px;
+}
+.link-create {
+}
+
+.container {
+    margin: 20px;
+}
