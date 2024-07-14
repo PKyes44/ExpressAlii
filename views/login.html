@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="title">
+            <h2><a href="/">ExpressAli Login</a></h2>
+        </div>
+    </header>
+    <div class="container">
+        <p>Login</p>
+        <div class="login-form">
+            <p><input type="text" id="id" placeholder="ID" required></p>
+            <div id="id-error-msg" class="error-msg"></div>
+            <p><input type="text" id="password" placeholder="Password" required></p>
+            <div id="password-error-msg" class="error-msg"></div>
+            <input type="submit" id="login-submit">
+        </div>
+        <a href="/regist">go to regist</a>
+    </div>
+</body>
+<script src="./../db.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+    console.log('Successfully regist html Enter')
+    
+    const inputId = document.querySelector('#id');
+    const inputPassword = document.querySelector('#password');
+    const idErrorMsg = document.querySelector('#id-error-msg');
+    const passwordErrorMsg = document.querySelector('#password-error-msg');
+    const submitBtn = document.querySelector('#login-submit');
+    submitBtn.addEventListener('click', function() {
+
+        console.log('Successfully onClick Event Enter');
+
+        var id = inputId.value;
+        var password = inputPassword.value;
+
+        if (id == null || id == undefined || id == "") {
+            console.log("Cannot read id");
+            idErrorMsg.textContent = "아이디를 입력해주세요";
+            return;
+        }
+        idErrorMsg.textContent = "";
+        if (password == null || password == undefined || password == "") {
+            console.log("Cannot read password");
+            passwordErrorMsg.textContent = "비밀번호를 입력해주세요";
+            return;
+        }
+        passwordErrorMsg.textContent = "";
+
+        console.log(inputId.value, inputPassword.value);
+
+        $.ajax({
+            type: "post",  // fetch의 method 기능
+            url: "http://localhost:3000/process_login", // json 넣어놨음
+            // 메타데이터 타입을 명시해주면, ajax가 자동으로 js오브젝트로 파싱해준다
+            dataType: "json",
+            data: {
+                'id': id,
+                'password': password,
+            },
+            success: function(res) {
+                console.log("Successfully ajax communication")
+                console.log(res);
+                if(res.code == 200){  
+                    // alert('Successfully ID login');
+                    window.location.href = "/";
+                }
+            },
+            error: function(req, status, err) {
+                console.log("Faild ajax communication");
+                console.log(`Status Code is ${status}`);
+                console.log(err.responseText);
+            }
+        });
+    })
+</script>
+</html>

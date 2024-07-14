@@ -13,6 +13,11 @@
         <div class="link-create">
             <a href="/shop">Go to Shop</a>
         </div>
+        <div class="login">
+            <a href="/login" class="link-login">Login</a>
+            <div class="entered"></div>
+            <a href="/logout" class="link-logout" style="display:none";>Log Out</a>
+        </div>
     </header>
     <div class="container">
         <p>
@@ -20,4 +25,37 @@
         </p>
     </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+    const linkLogin = document.querySelector('.link-login');
+    const entered = document.querySelector('.entered');
+    const linkLogout = document.querySelector('.link-logout');
+
+    $(document).ready(function() {
+        $.ajax({
+            type: "post",
+            url: "http://localhost:3000/",
+            dataType: "json",
+            success: function(res) {
+                console.log("Successfully ajax communication")
+                console.log(res);
+                console.log(res['message']);
+
+                if(res['code'] == 200){
+                    entered.textContent = res['message'];
+                    linkLogin.style.display = 'none';
+                    linkLogout.style.display = 'block';
+                }
+            },
+            error: function(req, status, err) {
+                console.log("Faild ajax communication");
+                console.log(`Status Code is ${status}`);
+                console.log(err.responseText);
+                linkLogin.style.display = 'block';
+                entered.textContent = "";
+                linkLogout.style.display = 'none';
+            }
+        });
+    })    
+</script>
 </html>
